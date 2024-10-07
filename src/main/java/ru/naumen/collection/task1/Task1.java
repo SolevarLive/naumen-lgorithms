@@ -1,5 +1,8 @@
 package ru.naumen.collection.task1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Дано:
  * <pre>
@@ -22,8 +25,7 @@ package ru.naumen.collection.task1;
  * @author vpyzhyanov
  * @since 19.10.2023
  */
-public class Task1
-{
+public class Task1 {
     public enum Goods {
         /**
          * нет товаров
@@ -39,6 +41,18 @@ public class Task1
         FOOD_AND_DRINKS
     }
 
+    // Используем HashMap для хранения соответствия между билетами и товарами
+    // 1. Быстрый доступ к данным: O(1) в среднем
+    // 2. Позволяет использовать объект Ticket в качестве ключа, что удобно для поиска товаров по билету.
+    // 3. Хранит пары "ключ-значение", что идеально подходит для данной задачи.
+    //Сложность: O(1)
+    //Создание нового объекта HashMap не требует обработки данных, и поэтому занимает постоянное время.
+    private Map<Ticket, Goods> ticketGoodsMap;
+
+    public Task1() {
+        ticketGoodsMap = new HashMap<>();
+    }
+
     /**
      * Получить товары по билету
      * <p>Сложность алгоритма O(1)</p>
@@ -46,8 +60,16 @@ public class Task1
      * <p><b>Мы не забыли определить equals и hashcode у класса {@link Ticket}</b></p>
      * <p>Достаточно их определить только для id, т.к. он уникален</p>
      */
+
+    //Сложность: O(1)
+    //При использовании хеш-таблицы для хранения данных, поиск элемента по ключу (хеш-коду) выполняется за O(1)
+    // Это происходит потому, что хеш-код ключа используется для вычисления индекса в массиве, где хранится значение.
     public Goods getGoods(Ticket ticket) {
-        // TODO реализовать
-        return null;
+        // Метод getOrDefault возвращает значение по ключу или значение по умолчанию (Goods.EMPTY),
+        // если ключ не найден. Сложность O(1) благодаря использованию HashMap.
+        return ticketGoodsMap.getOrDefault(ticket, Goods.EMPTY);
     }
+
+
+    //Общая сложность O(1)
 }
